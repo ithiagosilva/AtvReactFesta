@@ -7,6 +7,7 @@ interface propCliente {
   cpf: String;
   saldo: number;
   onEditar?: () => void;
+  onExcluir?: () => void;
 }
 
 export default function Cliente({
@@ -15,6 +16,7 @@ export default function Cliente({
   cpf,
   saldo,
   onEditar,
+  onExcluir,
 }: propCliente) {
   return (
     <>
@@ -30,7 +32,7 @@ export default function Cliente({
           <Text style={styles.txtBtn}>Editar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.btn1}>
+        <TouchableOpacity style={styles.btn1} onPress={onExcluir}>
           <Text style={styles.txtBtn}>Excluir</Text>
         </TouchableOpacity>
       </View>

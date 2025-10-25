@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
+  Alert,
 } from "react-native";
 import Cliente from "../componentes/Cliente";
 
@@ -20,6 +21,16 @@ export default function ListarClientes() {
   async function buscarClientes() {
     const response = await api.get("clientes");
     setClientes(response.data);
+  }
+
+  async function excluir(id: number) {
+    try {
+      const r = await api.delete(`clientes/${id}`);
+      Alert.alert("Excluir", `${JSON.stringify(r.data)}`);
+      buscarClientes();
+    } catch (e: any) {
+      Alert.alert("Erro ao excluir", e?.message ?? "Erro desconhecido");
+    }
   }
 
   function editar(item: ClienteType) {
@@ -54,6 +65,7 @@ export default function ListarClientes() {
               saldo={item.saldo}
               id={item.id}
               onEditar={() => editar(item)}
+              onExcluir={() => excluir(item.id)}
             />
           )}
           style={styles.lista}
