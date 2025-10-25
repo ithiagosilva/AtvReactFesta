@@ -9,11 +9,13 @@ import {
 import Cliente from "../componentes/Cliente";
 
 import api from "../componentes/Api";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ListarClientes() {
   type ClienteType = { id: number; nome: string; cpf: string; saldo: number };
 
   const [clientes, setClientes] = useState<ClienteType[]>([]);
+  const navigation = useNavigation();
   async function buscarClientes() {
     const response = await api.get("clientes");
     setClientes(response.data);
@@ -22,10 +24,14 @@ export default function ListarClientes() {
   useEffect(() => {
     buscarClientes();
   }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.bloco}>
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => navigation.navigate("TelaCadCliente" as never)}
+        >
           <Text style={styles.txtBtn}>Cadastrar Novo Cliente</Text>
         </TouchableOpacity>
       </View>
