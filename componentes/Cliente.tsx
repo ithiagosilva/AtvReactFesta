@@ -6,9 +6,16 @@ interface propCliente {
   nome: String;
   cpf: String;
   saldo: number;
+  onEditar?: () => void;
 }
 
-export default function Cliente({ id, nome, cpf, saldo }: propCliente) {
+export default function Cliente({
+  id,
+  nome,
+  cpf,
+  saldo,
+  onEditar,
+}: propCliente) {
   return (
     <>
       <View style={styles.container}>
@@ -19,7 +26,7 @@ export default function Cliente({ id, nome, cpf, saldo }: propCliente) {
       </View>
 
       <View style={styles.row}>
-        <TouchableOpacity style={styles.btn2}>
+        <TouchableOpacity style={styles.btn2} onPress={onEditar}>
           <Text style={styles.txtBtn}>Editar</Text>
         </TouchableOpacity>
 

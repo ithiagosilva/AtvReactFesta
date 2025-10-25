@@ -16,9 +16,14 @@ export default function ListarClientes() {
 
   const [clientes, setClientes] = useState<ClienteType[]>([]);
   const navigation = useNavigation();
+
   async function buscarClientes() {
     const response = await api.get("clientes");
     setClientes(response.data);
+  }
+
+  function editar(item: ClienteType) {
+    navigation.navigate("TelaEditCliente" as never, { cliente: item } as never);
   }
 
   useEffect(() => {
@@ -48,6 +53,7 @@ export default function ListarClientes() {
               cpf={item.cpf}
               saldo={item.saldo}
               id={item.id}
+              onEditar={() => editar(item)}
             />
           )}
           style={styles.lista}
